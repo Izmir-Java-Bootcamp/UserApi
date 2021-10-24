@@ -7,6 +7,8 @@ import com.kodluyoruz.userapi.model.entity.User;
 import com.kodluyoruz.userapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.kodluyoruz.userapi.model.mapper.UserMapper.USER_MAPPER;
 
@@ -26,6 +28,7 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("User not found!"));
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public void incrementRegistrationsCount(int id) {
         repository.incrementRegisteredBookCount(id);
     }
